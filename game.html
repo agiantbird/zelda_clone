@@ -1,4 +1,4 @@
-<!-- Done through lesson 1 -->
+<!-- Done through lesson 5 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +26,12 @@ let upPressed = false;
 let downPressed = false;
 let link1 = new Image();
 link1.src = "link.png";
+let hud = new Image();
+hud.src = "pausescreen.png"
+let chars1 = new Image();
+chars1.src = "chars.png"
+let chars2 = new Image();
+chars2.src = "chars2.png"
 let animationCounter = 0;
 let currentAnimation = 0;
 let animationSpeed = 10;
@@ -38,6 +44,9 @@ let maps = [];
 // gameMap is a combination
 // of the tile map and its gameObjects
 let gameMap = null;
+let lastPickUpItem = 0;
+let playPickUpItemAnimation = false;
+
 
 function GameObject() {
    this.x = 0;
@@ -52,6 +61,24 @@ function GameObject() {
    this.newLinkX = 0;
    this.newLinkY = 0;
    this.isPortal = false;
+   //animation properties
+   this.counter = 0;
+   this.imageNum = 0;
+   // text (dialogue) properties
+   this.isText = false;
+   this.line1Full = "";
+   this.line2Full = "";
+   this.line1Current = "";
+   this.line2Current = "";
+   this.line1X = 0;
+   this.line1Y = 0;
+   this.line2X = 0;
+   this.line2Y = 0;
+   this.isOldMan = false;
+   this.isPickUpItem = false;
+   this.isFlame = false;
+   this.isOldWoman = false;
+
 }
 
 function MapBundle(m, o)
@@ -259,6 +286,55 @@ let mapWoodSword = [
 [ 55, 55, 55, 55, 55, 55, 55, 28, 28, 55, 55, 55, 55, 55, 55, 55]];
 let gameObjectsWoodSword = [];
 
+// Flame, Old Man, and Sword variables
+//flame
+gO = new GameObject();
+gO.x = (4 * 16) + 8;
+gO.y = (8 * 16);
+gO.width = 16;
+gO.height = 16;
+gO.isFlame = true;
+gameObjectsWoodSword.push(gO);
+//old man
+gO = new GameObject();
+gO.x = (7 * 16) + 8;
+gO.y = (8 * 16);
+gO.width = 16;
+gO.height = 16;
+gO.isOldMan = true;
+gameObjectsWoodSword.push(gO);
+//flame
+gO = new GameObject();
+gO.x = (10 * 16) + 8;
+gO.y = (8 * 16);
+gO.width = 16;
+gO.height = 16;
+gO.isFlame = true;
+gameObjectsWoodSword.push(gO);
+//sword
+gO = new GameObject();
+gO.x = (8 * 16) - 4;
+gO.y = (9.5 * 16);
+gO.width = 8;
+gO.height = 16;
+gO.isPickUpItem = true;
+gO.pickUpItemNum = 14;
+gameObjectsWoodSword.push(gO);
+
+////Text variables
+gO = new GameObject();
+gO.isText = true;
+gO.line1Full = "IT'S DANGEROUS TO GO";
+gO.line2Full = "ALONE! TAKE THIS."
+gO.line1X = 3 * 16;
+gO.line1Y = 7 * 16;
+gO.line2X = 4 * 16;
+gO.line2Y = (8 * 16) - 6;
+gameObjectsWoodSword.push(gO);
+
+
+
+//// Portal variables
 // reinstantiate gO as new game object
 // got rid of 'let' because we're reassigning
 gO = new GameObject();
@@ -341,6 +417,113 @@ function gameObjectCollision(x, y, objects, isLink) {
    }
 }
 
+function drawGameObjects() {
+   for(let i = 0; i < gameObjects.length; i++) {
+      if(gameObjects[i].isPickUpItem) {
+         // equipable 
+         //// 0 - boomerang
+         //// 1 - bomb
+         //// 2 - bow and arrow
+         //// 3 - candle
+         //// 4 - flute
+         //// 5 - meat
+         //// 6 - potion(red or blue)
+         //// 7 - magic rod
+         // always equipped
+         //// 8 - raft
+         //// 9 - book of magic
+         ////10 - ring
+         ////11 - ladder
+         ////12 - key
+         ////13 - bracelet
+         ////14 - wood sword
+         switch(gameObjects[i].pickUpItemNum) {
+            case 0:
+
+               break;
+            case 1:
+               
+               break;
+            case 2:
+               
+               break;
+            case 3:
+               
+               break;
+            case 4:
+               
+               break;
+            case 5:
+               
+               break;
+            case 6:
+               
+               break;
+            case 7:
+               
+               break;
+            case 8:
+               
+               break;
+            case 9:
+               
+               break;
+            case 10:
+               
+               break;
+            case 11:
+               
+               break;
+            case 12:
+               
+               break;
+            case 13:
+
+               break;
+            case 14:
+               ctx.drawImage(hud, 555, 137, 8, 16, gameObjects[i].x, gameObjects[i].y, 8, 16);
+               break;
+         }
+      }
+      if(gameObjects[i].isText) {
+         gameObjects[i].counter += 1;
+         if(gameObjects[i].counter % 5 == 0) {
+            if(gameObjects[i].line1Full.length != gameObjects[i].line1Current.length) {
+               gameObjects[i].line1Current = gameObjects[i].line1Full.substring(0, gameObjects[i].line1Current.length + 1);
+            } else if(gameObjects[i].line2Full.length != gameObjects[i].line2Current.length) {
+               gameObjects[i].line2Current = gameObjects[i].line2Full.substring(0, gameObjects[i].line2Current.length + 1);
+            }
+         }
+
+         ctx.fillStyle = "white";
+         ctx.font = "12px Courier";
+         ctx.fillText(gameObjects[i].line1Current, gameObjects[i].line1X, gameObjects[i].line1Y);
+         ctx.fillText(gameObjects[i].line2Current, gameObjects[i].line2X, gameObjects[i].line2Y);
+      }
+      if(gameObjects[i].isFlame) {
+         gameObjects[i].counter++;
+         if(gameObjects[i].counter % 5 == 0) {
+            gameObjects[i].imageNum++;
+         }
+         if(gameObjects[i].imageNum > 1) {
+            gameObjects[i].imageNum = 0;
+         }
+         if (gameObjects[i].imageNum == 0) {
+            ctx.drawImage(chars2, 158, 11, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+         }
+         if (gameObjects[i].imageNum == 1) {
+            ctx.drawImage(chars1, 52, 11, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+         }
+      }
+      if(gameObjects[i].isOldMan) {
+         ctx.drawImage(chars1, 1, 11, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+      }
+      if(gameObjects[i].isOldWoman) {
+         ctx.drawImage(chars1, 35, 11, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+      }
+   }
+}
+
 
 function draw () {
    setTimeout(function() {
@@ -351,6 +534,7 @@ function draw () {
    drawMap(gameMap);
    drawLink();
    gameObjectCollision(linkX, linkY, gameObjects, true);
+   drawGameObjects();
    },1000/fps);
 }
 draw();
