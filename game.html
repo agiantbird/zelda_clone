@@ -1,4 +1,4 @@
-<!-- Done through lesson 5 -->
+<!-- Done through lesson 6 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -122,113 +122,167 @@ function drawLink()
 {
    let speed = 2;
    animationCounter++;
-   
-   if(leftPressed && !collision(linkX - speed, linkY, gameMap))
-   {
-         linkX -= speed;
+   if(playPickUpItemAnimation) {
+      if(animationCounter < 150) {
+         ctx.drawImage(link1, 1, 150, 16, 16, linkX, linkY, 16, 16);
+      } else {
+         playPickUpItemAnimation = false;
+      }
+      switch(lastPickUpItem) {
+         case 0:
+
+            break;
+         case 1:
+            
+            break;
+         case 2:
+            
+            break;
+         case 3:
+            
+            break;
+         case 4:
+            
+            break;
+         case 5:
+            
+            break;
+         case 6:
+            
+            break;
+         case 7:
+            
+            break;
+         case 8:
+            
+            break;
+         case 9:
+            
+            break;
+         case 10:
+            
+            break;
+         case 11:
+            
+            break;
+         case 12:
+            
+            break;
+         case 13:
+
+            break;
+         case 14:
+            ctx.drawImage(hud, 555, 137, 8, 16, linkX - 2, linkY - 14, 8, 16);
+            break;
+      }
+   } else {
+      if(leftPressed && !collision(linkX - speed, linkY, gameMap))
+      {
+            linkX -= speed;
+            if(currentAnimation == 0)
+            {
+               ctx.drawImage(link1, 30, 0, 16, 16, linkX, linkY, 16, 16);
+            }
+            else if(currentAnimation == 1)
+            {
+               ctx.drawImage(link1, 30, 30, 16, 16,linkX, linkY, 16, 16);
+            }
+            if(animationCounter >= 6)
+            {
+               currentAnimation++;
+               animationCounter = 0;
+               if(currentAnimation > 1)
+               {
+                  currentAnimation = 0;
+               }
+            }
+      }
+      else if(rightPressed && !collision(linkX + speed, linkY, gameMap))
+      {
+         linkX += speed;
          if(currentAnimation == 0)
-         {
-            ctx.drawImage(link1, 30, 0, 16, 16, linkX, linkY, 16, 16);
-         }
-         else if(currentAnimation == 1)
-         {
-            ctx.drawImage(link1, 30, 30, 16, 16,linkX, linkY, 16, 16);
-         }
-         if(animationCounter >= 6)
-         {
-            currentAnimation++;
-            animationCounter = 0;
-            if(currentAnimation > 1)
             {
-               currentAnimation = 0;
+               ctx.drawImage(link1, 91, 0, 16, 16, linkX, linkY, 16, 16);
             }
-         }
-   }
-   else if(rightPressed && !collision(linkX + speed, linkY, gameMap))
-   {
-      linkX += speed;
-      if(currentAnimation == 0)
-         {
-            ctx.drawImage(link1, 91, 0, 16, 16, linkX, linkY, 16, 16);
-         }
-         else if(currentAnimation == 1)
-         {
-            ctx.drawImage(link1, 91, 30, 16, 16,linkX, linkY, 16, 16);
-         }
-         if(animationCounter >= 6)
-         {
-            currentAnimation++;
-            animationCounter = 0;
-            if(currentAnimation > 1)
+            else if(currentAnimation == 1)
             {
-               currentAnimation = 0;
+               ctx.drawImage(link1, 91, 30, 16, 16,linkX, linkY, 16, 16);
             }
-         }
-   }
-   else if(upPressed && !collision(linkX, linkY - speed, gameMap))
-   {
-      linkY -= speed;
-      if(currentAnimation == 0)
-         {
-            ctx.drawImage(link1, 62, 0, 16, 16, linkX, linkY, 16, 16);
-         }
-         else if(currentAnimation == 1)
-         {
-            ctx.drawImage(link1, 62, 30, 16, 16,linkX, linkY, 16, 16);
-         }
-         if(animationCounter >= 6)
-         {
-            currentAnimation++;
-            animationCounter = 0;
-            if(currentAnimation > 1)
+            if(animationCounter >= 6)
             {
-               currentAnimation = 0;
+               currentAnimation++;
+               animationCounter = 0;
+               if(currentAnimation > 1)
+               {
+                  currentAnimation = 0;
+               }
             }
-         }
-   }
-   else if(downPressed && !collision(linkX, linkY + speed, gameMap))
-   {
-      linkY += speed;
-      if(currentAnimation == 0)
-         {
-            ctx.drawImage(link1, 0, 0, 16, 16, linkX, linkY, 16, 16);
-         }
-         else if(currentAnimation == 1)
-         {
-            ctx.drawImage(link1, 0, 30, 16, 16,linkX, linkY, 16, 16);
-         }
-         if(animationCounter >= 6)
-         {
-            currentAnimation++;
-            animationCounter = 0;
-            if(currentAnimation > 1)
-            {
-               currentAnimation = 0;
-            }
-         }
-   }
-   
-   else
-   {
-      if(lastButtonPressed == "down")
-      {
-         ctx.drawImage(link1, 0, 0, 
-         16, 16, linkX, linkY, 16, 16);
       }
-      if(lastButtonPressed == "up")
+      else if(upPressed && !collision(linkX, linkY - speed, gameMap))
       {
-         ctx.drawImage(link1, 62, 0, 
-         16, 16, linkX, linkY, 16, 16);
+         linkY -= speed;
+         if(currentAnimation == 0)
+            {
+               ctx.drawImage(link1, 62, 0, 16, 16, linkX, linkY, 16, 16);
+            }
+            else if(currentAnimation == 1)
+            {
+               ctx.drawImage(link1, 62, 30, 16, 16,linkX, linkY, 16, 16);
+            }
+            if(animationCounter >= 6)
+            {
+               currentAnimation++;
+               animationCounter = 0;
+               if(currentAnimation > 1)
+               {
+                  currentAnimation = 0;
+               }
+            }
       }
-      if(lastButtonPressed == "left")
+      else if(downPressed && !collision(linkX, linkY + speed, gameMap))
       {
-         ctx.drawImage(link1, 30, 0, 
-         16, 16, linkX, linkY, 16, 16);
+         linkY += speed;
+         if(currentAnimation == 0)
+            {
+               ctx.drawImage(link1, 0, 0, 16, 16, linkX, linkY, 16, 16);
+            }
+            else if(currentAnimation == 1)
+            {
+               ctx.drawImage(link1, 0, 30, 16, 16,linkX, linkY, 16, 16);
+            }
+            if(animationCounter >= 6)
+            {
+               currentAnimation++;
+               animationCounter = 0;
+               if(currentAnimation > 1)
+               {
+                  currentAnimation = 0;
+               }
+            }
       }
-      if(lastButtonPressed == "right")
+      
+      else
       {
-         ctx.drawImage(link1, 91, 0, 
-         16, 16, linkX, linkY, 16, 16);
+         if(lastButtonPressed == "down")
+         {
+            ctx.drawImage(link1, 0, 0, 
+            16, 16, linkX, linkY, 16, 16);
+         }
+         if(lastButtonPressed == "up")
+         {
+            ctx.drawImage(link1, 62, 0, 
+            16, 16, linkX, linkY, 16, 16);
+         }
+         if(lastButtonPressed == "left")
+         {
+            ctx.drawImage(link1, 30, 0, 
+            16, 16, linkX, linkY, 16, 16);
+         }
+         if(lastButtonPressed == "right")
+         {
+            ctx.drawImage(link1, 91, 0, 
+            16, 16, linkX, linkY, 16, 16);
+         }
       }
    }
 }
@@ -411,6 +465,75 @@ function gameObjectCollision(x, y, objects, isLink) {
                gameObjects = maps[objects[i].newMap].gameobjects;
                linkX = objects[i].newLinkX;
                linkY = objects[i].newLinkY;
+            }
+            if(objects[i].isPickUpItem) {
+               playPickUpItemAnimation = true;
+               // equipable 
+               //// 0 - boomerang
+               //// 1 - bomb
+               //// 2 - bow and arrow
+               //// 3 - candle
+               //// 4 - flute
+               //// 5 - meat
+               //// 6 - potion(red or blue)
+               //// 7 - magic rod
+               // always equipped
+               //// 8 - raft
+               //// 9 - book of magic
+               ////10 - ring
+               ////11 - ladder
+               ////12 - key
+               ////13 - bracelet
+               ////14 - wood sword
+               switch(gameObjects[i].pickUpItemNum) {
+                  case 0:
+
+                     break;
+                  case 1:
+                     
+                     break;
+                  case 2:
+                     
+                     break;
+                  case 3:
+                     
+                     break;
+                  case 4:
+                     
+                     break;
+                  case 5:
+                     
+                     break;
+                  case 6:
+                     
+                     break;
+                  case 7:
+                     
+                     break;
+                  case 8:
+                     
+                     break;
+                  case 9:
+                     
+                     break;
+                  case 10:
+                     
+                     break;
+                  case 11:
+                     
+                     break;
+                  case 12:
+                     
+                     break;
+                  case 13:
+
+                     break;
+                  case 14:
+                     lastPickUpItem = 14;
+                     swordEquipped = 1;
+                     break;
+               }
+               objects.splice(i, 1)
             }
          }
       }
