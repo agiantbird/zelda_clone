@@ -87,6 +87,12 @@ function MapBundle(m, o)
    this.gameobjects = o;
 }
 
+function playSound(source) {
+   let sound = new Audio();
+   sound.src = source;
+   sound.play();
+}
+
 function keyDownHandler(e){
     if(e.keyCode == 37) {
       leftPressed = true;
@@ -531,6 +537,7 @@ function gameObjectCollision(x, y, objects, isLink) {
                   case 14:
                      lastPickUpItem = 14;
                      swordEquipped = 1;
+                     playSound('./sounds/item.mp3');
                      break;
                }
                objects.splice(i, 1)
@@ -613,8 +620,10 @@ function drawGameObjects() {
          if(gameObjects[i].counter % 5 == 0) {
             if(gameObjects[i].line1Full.length != gameObjects[i].line1Current.length) {
                gameObjects[i].line1Current = gameObjects[i].line1Full.substring(0, gameObjects[i].line1Current.length + 1);
+               playSound('./sounds/LOZ_text_slow.wav');
             } else if(gameObjects[i].line2Full.length != gameObjects[i].line2Current.length) {
                gameObjects[i].line2Current = gameObjects[i].line2Full.substring(0, gameObjects[i].line2Current.length + 1);
+               playSound('./sounds/LOZ_text_slow.wav');
             }
          }
 
