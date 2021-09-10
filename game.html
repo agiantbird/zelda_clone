@@ -1,4 +1,4 @@
-<!-- Done through lesson 8 -->
+<!-- Done through lesson 10 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +28,8 @@ let link1 = new Image();
 link1.src = "link.png";
 let hud = new Image();
 hud.src = "pausescreen.png"
+let enemies = new Image();
+enemies.src = "enemies.png"
 let chars1 = new Image();
 chars1.src = "chars.png"
 let chars2 = new Image();
@@ -81,11 +83,27 @@ function GameObject() {
    this.line1Y = 0;
    this.line2X = 0;
    this.line2Y = 0;
+
    this.isOldMan = false;
    this.isPickUpItem = false;
    this.isFlame = false;
    this.isOldWoman = false;
-
+   this.isRupee = false;
+   this.rupeeValue = 1;
+   //Enemy properties
+   this.isEnemy = false;
+   this.enemyType = 0;
+   this.nextX = 0;
+   this.nextY = 0;
+   this.isAttacking = false;
+   this.health = 0;
+   this.direction = "up";
+   this.enemy = [];
+   this.counter = 0;
+   this.frame = 0;
+   this.needsBounce = false;
+   this.bounceX = 0;
+   this.bounceY = 0;
 }
 
 function MapBundle(m, o)
@@ -329,6 +347,17 @@ gO.newLinkX = 120;
 gO.newLinkY = 220;
 gO.isPortal = true;
 // push game object into objects7_7 array
+objects7_7.push(gO);
+
+// place enemy on first map
+gO = new GameObject();
+gO.x = 160;
+gO.y = 184;
+gO.width = 16;
+gO.height = 16;
+gO.isEnemy = true;
+gO.enemyType = 1;
+// push game object (enemy) into objects7_7 array
 objects7_7.push(gO);
 
 let bundle = new MapBundle(map7_7, objects7_7);
@@ -659,6 +688,50 @@ function drawGameObjects() {
       }
       if(gameObjects[i].isOldWoman) {
          ctx.drawImage(chars1, 35, 11, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+      }
+      if(gameObjects[i].isEnemy) {
+         if(gameObjects[i].enemyType == 1) {
+            gameObjects[i].counter++;
+            if(gameObjects[i].counter >= 10) {
+               gameObjects[i].frame++;
+               gameObjects[i].counter = 0;
+               if(gameObjects[i].frame > 1) {
+                  gameObjects[i].frame = 0;
+               }
+            }
+            if(gameObjects[i].direction == "down") {
+               if(gameObjects[i].frame == 0) {
+                  ctx.drawImage(enemies, 0, 0, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+               }
+               if(gameObjects[i].frame == 1) {
+                  ctx.drawImage(enemies, 0, 30, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+               }
+            }
+            if(gameObjects[i].direction == "up") {
+               if(gameObjects[i].frame == 0) {
+                  ctx.drawImage(enemies, 60, 0, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+               }
+               if(gameObjects[i].frame == 1) {
+                  ctx.drawImage(enemies, 60, 30, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+               }
+            }
+            if(gameObjects[i].direction == "left") {
+               if(gameObjects[i].frame == 0) {
+                  ctx.drawImage(enemies, 30, 0, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+               }
+               if(gameObjects[i].frame == 1) {
+                  ctx.drawImage(enemies, 30, 30, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+               }
+            }
+            if(gameObjects[i].direction == "right") {
+               if(gameObjects[i].frame == 0) {
+                  ctx.drawImage(enemies, 90, 0, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+               }
+               if(gameObjects[i].frame == 1) {
+                  ctx.drawImage(enemies, 90, 30, 16, 16, gameObjects[i].x, gameObjects[i].y, 16, 16);
+               }
+            }
+         }
       }
    }
 }
