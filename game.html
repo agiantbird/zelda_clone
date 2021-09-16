@@ -1,4 +1,4 @@
-<!-- Done through lesson 10 -->
+<!-- Done through lesson 14 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,7 +94,8 @@ function GameObject() {
    this.isFlame = false;
    this.isOldWoman = false;
    this.isRupee = false;
-   this.rupeeValue = 1;
+   this.rupeeValue = 0;
+   this.rupeeImage = 0;
    //Enemy properties
    this.isEnemy = false;
    this.enemyType = 0;
@@ -411,6 +412,7 @@ gO.width = 16;
 gO.height = 16;
 gO.isEnemy = true;
 gO.enemyType = 1;
+gO.health = 1;
 // push game object (enemy) into objects7_7 array
 objects7_7.push(gO);
 
@@ -562,7 +564,12 @@ function gameObjectCollision(x, y, objects, isLink, isSword, direction) {
                linkX = objects[i].newLinkX;
                linkY = objects[i].newLinkY;
             }
-            if(objects[i].isPickUpItem) {
+            else if(objects[i].isRupee) {
+               rupeeAmount += objects[i].rupeeValue;
+               objects.splice(i, 1);
+               playSound("./sounds/LOZ_Get_Rupee.wav");
+            }
+            else if(objects[i].isPickUpItem) {
                playPickUpItemAnimation = true;
                // equipable 
                //// 0 - boomerang
@@ -883,9 +890,67 @@ function drawGameObjects() {
                      gameObjects[i].y -= 4;
                   }
                }
-            } else {
-               gameObjects[i].needsBounce = false;
+               else if(gameObjects[i].y != gameObjects[i].bounceY)
+               {
+                  if(gameObjects[i].bounceY > gameObjects[i].y)
+                  {
+                     gameObjects[i].y += 4;
+                  }
+                  else if(gameObjects[i].bounceY < gameObjects[i].y)
+                  {
+                     gameObjects[i].y -= 4;
+                  }
+               }
+               else
+               {
+                  gameObjects[i].needsBounce = false;
+                  if(gameObjects[i].health <= 0)
+                  { 
+                     let rupeeChance = Math.floor(Math.random()*10);
+                     if(rupeeChance < 10)
+                     {
+                        
+                        gO = new GameObject()
+                        gO.x = gameObjects[i].x + 4;
+                        gO.y = gameObjects[i].y;
+                        gO.width = 8;
+                        gO.height = 16;
+                        gO.isPickUpItem = false;
+                        gO.isRupee = true;
+                        let rupeeValueChance = Math.floor(Math.random()*10);
+                        if(rupeeValueChance < 2)
+                        {
+                            gO.rupeeValue = 5;
+                        }
+                        else
+                        {
+                           gO.rupeeValue = 1;
+                        }
+                        gameObjects.push(gO);
+                     }
+                     gameObjects.splice(i,1);
+                  }
+               }
             }
+         }
+      }
+      if(gameObjects[i].isRupee) {
+         if(gameObjects[i].rupeeValue == 1) {
+            gameObjects[i].counter++;
+            if(gameObjects[i].counter % 5 == 0) {
+               gameObjects[i].rupeeImage += 1;
+            }
+            if(gameObjects[i].rupeeImage > 1) {
+               gameObjects[i].rupeeImage = 0;
+            }
+            if(gameObjects[i].rupeeImage == 0) {
+               ctx.drawImage(link1, 244, 225, 8, 16, gameObjects[i].x, gameObjects[i].y, 8, 16);
+            }
+            else {
+               ctx.drawImage(link1, 274, 225, 8, 16, gameObjects[i].x, gameObjects[i].y, 8, 16);
+            }
+         } else {
+            ctx.drawImage(link1, 274, 225, 8, 16, gameObjects[i].x, gameObjects[i].y, 8, 16);
          }
       }
    }
