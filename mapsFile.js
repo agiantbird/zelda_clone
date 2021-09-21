@@ -1,66 +1,3 @@
-let maps = [];
-function MapBundle(m, o)
-{
-	this.map = m;
-	this.gameobjects = o;
-}
-
-function GameObject()
-{
-	this.x = 0;
-	this.y = 0;
-	this.width = 0;
-	this.height = 0;
-	this.newMap = 0;
-	this.newLinkX = -1;
-	this.newLinkY = -1;
-	this.shiftsLeftRight = false;
-	this.shiftsUpDown = false;
-	this.isPortal = false;
-	this.isEnemy = false;
-	this.enemyType = 0;
-	this.nextX = 0;
-	this.nextY = 0;
-	this.isAttacking = false;
-	this.health = 0;
-	this.direction = "up";
-	this.enemyPath = [];
-	this.counter = 0;
-	this.frame = 0;
-	this.needsBounce = false;
-	this.bounceX = 0;
-	this.bounceY = 0;
-	this.isRupee = false;
-	this.rupeeValue = 1;
-	this.rupeeImage = 0;
-	this.isText = false;
-	this.line1Full = "";
-	this.line2Full = "";
-	this.line1Current = "";
-	this.line2Current = "";
-	this.line1X = 0;
-	this.line1Y = 0;
-	this.line2X = 0;
-	this.line2Y = 0;
-	this.isOldMan = false;
-	this.isPickUpItem = false;
-	this.pickUpItemNum = 0;
-	this.isFlame = false;
-	this.isOldWoman = false;
-	this.isSaleRupee = false;
-	this.pickUpItemName = "";
-	this.speed = 3;
-	this.waterProjectile = false;
-	this.angle = 0;
-	this.cost = 0;
-	this.xSpeed = 0;
-	this.ySpeed = 0;
-	this.rockProjectile = false;
-	this.needsToShoot = false;
-	this.shootCounter = 0;
-}
-
-let gO = new GameObject();
 
 let map0 = [
 [ 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],
@@ -2478,7 +2415,7 @@ gameObjects102.push(gO);
  gameObjects102.push(gO);
  
  gO = new GameObject() 
- gO = new GameObject() 
+gO = new GameObject() 
  gO.x = 2 * 16; 
  gO.y = 10 * 16; 
  gO.nextX = 2 * 16; 
@@ -3413,7 +3350,7 @@ maps.push(new MapBundle(map127, gameObjects127));
  gO.line1Y = 7 * 16; 
  gO.line2X = 4 * 16; 
  gO.line2Y = (8 * 16) - 6;
- gO.isSaleItem = true; 
+gO.isSaleItem = true; 
  gameObjects129.push(gO); 
 
  gO = new GameObject() 
@@ -3428,7 +3365,7 @@ maps.push(new MapBundle(map127, gameObjects127));
  gO.pickUpItemNum = 15; 
  gameObjects129.push(gO); 
  
-  gO = new GameObject() 
+ gO = new GameObject() 
  gO.x = (8*16); 
  gO.y = (9.5*16); 
  gO.width = 16; 
@@ -3462,7 +3399,7 @@ maps.push(new MapBundle(map127, gameObjects127));
  gameObjects129.push(gO);
  
  maps.push(new MapBundle(map129, gameObjects129));
-/////////////////////////////////////////////////////////////////// -->
+ /////////////////////////////////////////////////////////////////// -->
 
 ////////////////////////////////////////////////////////////////////////////
 
