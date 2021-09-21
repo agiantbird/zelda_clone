@@ -1,3 +1,70 @@
+let maps = [];
+// m = map, o = array of objects
+function MapBundle(m, o) {
+	this.map = m;
+	this.gameobjects = o;
+}
+
+function GameObject() {
+   this.x = 0;
+   this.y = 0;
+   this.width = 0;
+   this.height = 0;
+   // index of maps array
+   // where next map (next level) is located
+   this.newMap = 0;
+   // where should Link be drawn on new
+   // map?
+   this.newLinkX = 0;
+   this.newLinkY = 0;
+   this.isPortal = false;
+   //animation properties
+   this.counter = 0;
+   this.imageNum = 0;
+   // text (dialogue) properties
+   this.isText = false;
+   this.line1Full = "";
+   this.line2Full = "";
+   this.line1Current = "";
+   this.line2Current = "";
+   this.line1X = 0;
+   this.line1Y = 0;
+   this.line2X = 0;
+   this.line2Y = 0;
+
+   this.isOldMan = false;
+   this.isPickUpItem = false;
+   this.isFlame = false;
+   this.isOldWoman = false;
+   this.isRupee = false;
+   this.rupeeValue = 0;
+   this.rupeeImage = 0;
+   //Enemy properties
+   this.isEnemy = false;
+   this.enemyType = 0;
+   this.nextX = 0;
+   this.nextY = 0;
+   this.isAttacking = false;
+   this.health = 0;
+   this.direction = "up";
+   this.enemy = [];
+   this.counter = 0;
+   this.frame = 0;
+   this.needsBounce = false;
+   this.bounceX = 0;
+   this.bounceY = 0;
+   this.speed = 3;
+   this.waterProjectile = false;
+   this.angle = 0;
+   this.cost = 0;
+   this.xSpeed = 0;
+   this.ySpeed = 0;
+   this.rockProjectile = false;
+   this.needsToShoot = false;
+   this.shootCounter = 0;
+}
+
+let gO = new GameObject();
 
 let map0 = [
 [ 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],
