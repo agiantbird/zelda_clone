@@ -18,6 +18,8 @@ function GameObject() {
    this.newLinkX = 0;
    this.newLinkY = 0;
    this.isPortal = false;
+   this.shiftsLeftRight = false;
+   this.shiftsUpDown = false;
    //animation properties
    this.counter = 0;
    this.imageNum = 0;
