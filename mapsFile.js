@@ -49,7 +49,7 @@ function GameObject() {
    this.isAttacking = false;
    this.health = 0;
    this.direction = "up";
-   this.enemy = [];
+   this.enemyPath = [];
    this.counter = 0;
    this.frame = 0;
    this.needsBounce = false;
