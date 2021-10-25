@@ -36,6 +36,8 @@ function GameObject() {
 
    this.isOldMan = false;
    this.isPickUpItem = false;
+   this.pickupItemNum = 0;
+   this.pickUpItemName = "";
    this.isFlame = false;
    this.isOldWoman = false;
    this.isRupee = false;
@@ -64,6 +66,9 @@ function GameObject() {
    this.rockProjectile = false;
    this.needsToShoot = false;
    this.shootCounter = 0;
+   this.isSwordProjectile = false;
+   this.isAnimation = false;
+   this.animationType = -1;
 }
 
 let gO = new GameObject();
